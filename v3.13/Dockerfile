@@ -5,7 +5,9 @@ RUN apk add --no-cache alpine-sdk sudo abuild && \
     rm -rf /var/cache/apk/*
 
 RUN sed -i "s/^\#PACKAGER.*$/PACKAGER=apk-builder/" /etc/abuild.conf && \
-    sed -i "/^\#MAINTAINER.*$/s/^#//" /etc/abuild.conf
+    sed -i "/^\#MAINTAINER.*$/s/^#//" /etc/abuild.conf && \
+    sed -e 's/^wheel:\(.*\)/wheel:\1,hiroom2/g' -i /etc/group
+
 
 
 ARG user=builder
@@ -15,7 +17,8 @@ RUN adduser \
     --gecos "" \
     --home $home \
     --ingroup abuild \
-    $user
+    $user && \
+    addgroup builder wheel
 
 RUN mkdir -p /var/cache/distfiles && \
     chgrp abuild /var/cache/distfiles && \
