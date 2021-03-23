@@ -1,6 +1,8 @@
 ARG ALPINE_VERSION
 FROM alpine:${ALPINE_VERSION}
 
+LABEL org.opencontainers.image.source https://github.com/leviable/apk-builder
+
 RUN apk add --no-cache alpine-sdk sudo abuild && \
     rm -rf /var/cache/apk/*
 

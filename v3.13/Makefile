@@ -1,6 +1,6 @@
 WORKDIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-DOCKER_REPO := levinoecker
+DOCKER_REPO := ghcr.io/leviable
 NAME := apk-builder
 ALPINE_VERSION := 3.13
 IMAGE := $(DOCKER_REPO)/$(NAME):$(ALPINE_VERSION)
@@ -22,7 +22,10 @@ shell:
 		-v `pwd`/keys/builder.rsa.pub:/home/builder/.abuild/builder.rsa.pub \
 		$(IMAGE)
 
-
 .PHONY: run
 run:
 	docker run --rm -it $(IMAGE) ls -al /
+
+.PHONY: push
+push:
+	docker push $(IMAGE)
