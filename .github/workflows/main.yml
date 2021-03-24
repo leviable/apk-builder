@@ -12,7 +12,7 @@ jobs:
     name: v3.13
     runs-on: ubuntu-20.04
     env:
-      ALPINE_VERSION: v3.13
+      ALPINE_VERSION: "3.13"
     steps:
       -
         name: Checkout
@@ -27,8 +27,136 @@ jobs:
       -
         name: Build
         run: |
-          make -C ${{ env.ALPINE_VERSION }} build
+          make build
+      -
+        name: Tag Latest
+        run: |
+          make tag-latest
       -
         name: Push
         run: |
-          make -C ${{ env.ALPINE_VERSION }} push
+          make push
+      -
+        name: Push Latest
+        run: |
+          make push-latest
+  v3_12:
+    name: v3.12
+    runs-on: ubuntu-20.04
+    env:
+      ALPINE_VERSION: "3.12"
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: GHCR Login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      -
+        name: Build
+        run: |
+          make build
+      -
+        name: Push
+        run: |
+          make push
+  v3_11:
+    name: v3.11
+    runs-on: ubuntu-20.04
+    env:
+      ALPINE_VERSION: "3.11"
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: GHCR Login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      -
+        name: Build
+        run: |
+          make build
+      -
+        name: Push
+        run: |
+          make push
+  v3_10:
+    name: v3.10
+    runs-on: ubuntu-20.04
+    env:
+      ALPINE_VERSION: "3.10"
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: GHCR Login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      -
+        name: Build
+        run: |
+          make build
+      -
+        name: Push
+        run: |
+          make push
+  v3_9:
+    name: v3.9
+    runs-on: ubuntu-20.04
+    env:
+      ALPINE_VERSION: "3.9"
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: GHCR Login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      -
+        name: Build
+        run: |
+          make build
+      -
+        name: Push
+        run: |
+          make push
+  v3_8:
+    name: v3.8
+    runs-on: ubuntu-20.04
+    env:
+      ALPINE_VERSION: "3.8"
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: GHCR Login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      -
+        name: Build
+        run: |
+          make build
+      -
+        name: Push
+        run: |
+          make push

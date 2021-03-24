@@ -2,7 +2,7 @@ WORKDIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 DOCKER_REPO := ghcr.io/leviable
 NAME := apk-builder
-ALPINE_VERSION := 3.13
+ALPINE_VERSION ?= 3.13
 IMAGE := $(DOCKER_REPO)/$(NAME):$(ALPINE_VERSION)
 
 DOCKER_BUILDKIT ?= 1
@@ -26,6 +26,14 @@ shell:
 run:
 	docker run --rm -it $(IMAGE) ls -al /
 
+.PHONY: tag-latest
+tag-latest:
+	docker tag $(IMAGE) $(DOCKER_REPO)/$(NAME):latest
+
 .PHONY: push
 push:
 	docker push $(IMAGE)
+
+.PHONY: push-latest
+push-latest:
+	docker push $(DOCKER_REPO)/$(NAME):latest
