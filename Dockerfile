@@ -3,6 +3,8 @@ FROM alpine:${ALPINE_VERSION}
 
 LABEL org.opencontainers.image.source https://github.com/leviable/apk-builder
 
+WORKDIR /apk-builder
+
 RUN apk add --no-cache alpine-sdk sudo abuild && \
     rm -rf /var/cache/apk/*
 
@@ -27,8 +29,9 @@ RUN mkdir -p /var/cache/distfiles && \
     chmod g+w /var/cache/distfiles
 
 
-USER builder
+RUN chgrp abuild /apk-builder && \
+    chown builder /apk-builder
 
-WORKDIR /apk-builder
+USER builder
 
 CMD ["ash"]
